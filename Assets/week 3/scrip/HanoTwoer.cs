@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class NewBehaviourScript : MonoBehaviour
 {
@@ -13,6 +16,8 @@ public class NewBehaviourScript : MonoBehaviour
     [SerializeField] private int[] peg3 = { 0, 0, 0, 0 };
 
     [SerializeField] private int currentPeg = 1;
+
+    public TextMeshProUGUI winText;
 
     [ContextMenu("Move Right")]
     public void MoveRight()
@@ -50,6 +55,11 @@ public class NewBehaviourScript : MonoBehaviour
         Transform toPeg = GetPegTransform(currentPeg + 1);
 
         disc.SetParent(toPeg);
+
+        if (currentPeg + 1 == 3 && IsAllDiscsOnPeg(peg3)) //when 3 of the child class is on peg 3 
+        {
+            winText.text = "You Win"; // Change the text to "You Win"
+        }
     }
 
     [ContextMenu("Move Left")]
@@ -166,5 +176,14 @@ public class NewBehaviourScript : MonoBehaviour
         }
 
         return -1;
+    }
+    bool IsAllDiscsOnPeg(int[] peg)
+    {
+        foreach (int disc in peg)
+        {
+            if (disc == 0)
+                return false;
+        }
+        return true;
     }
 }
