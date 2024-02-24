@@ -7,7 +7,10 @@ namespace ClassDemo
 {
     public class Player : MonoBehaviour
     {
+        [SerializeField]
+        //[Tooltip]
         public int health = 10;
+        //private AduioSource audioSource;
 
         public void Damge(int amt)
         {
@@ -31,10 +34,6 @@ namespace ClassDemo
             Enemy target = FindNewTarget();
             target.Damage(10);
         }
-        /* private void Awake()
-         {
-             Enemy target = FindNewTarget();
-             target.Damage(10);
-         }*/
+        
     }
 }
