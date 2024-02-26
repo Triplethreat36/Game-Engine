@@ -4,56 +4,64 @@ using UnityEngine;
 
 public class Flower : MonoBehaviour
 {
-    [SerializeField] private float nectarProductionRate = 5f;
-    [SerializeField] private Color nectarReadyColor = Color.yellow;
-    [SerializeField] private Color nectarNotReadyColor = Color.white;
-
-    private bool hasNectar = false;
-    private float productionTimer = 0f;
-
-    private SpriteRenderer spriteRenderer;
-
-    private void Start()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        UpdateFlowerColor();
-    }
-
-    private void Update()
+    public float nectarProductionRate = 10f;
+    private float nectarTimer = 0f;
+    void Update()
     {
         if (!hasNectar)
         {
-            productionTimer += Time.deltaTime;
-            if (productionTimer >= nectarProductionRate)
+            nectarTimer += Time.deltaTime;
+            if (nectarTimer >= nectarProductionRate)
             {
-                hasNectar = true;
-                productionTimer = 0f;
-                UpdateFlowerColor();
+                ProduceNectar();
+                nectarTimer = 0f;
             }
         }
     }
+    private bool hasNectar = false;
+    public SpriteRenderer spriteRenderer;
+    public Color nectarReadyColor;
+    public Color nectarNotReadyColor;
 
-    private void UpdateFlowerColor()
+    void Start()
     {
-        spriteRenderer.color = hasNectar ? nectarReadyColor : nectarNotReadyColor;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = nectarNotReadyColor; 
     }
 
+    void SetFlowerColor(bool isNectarReady)
+    {
+        spriteRenderer.color = isNectarReady ? nectarReadyColor : nectarNotReadyColor;
+    }
     public bool HasNectar()
     {
         return hasNectar;
     }
-
     public bool TakeNectar()
     {
         if (hasNectar)
         {
             hasNectar = false;
-            UpdateFlowerColor();
+            SetFlowerColor(false); 
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
+    void ProduceNectar()
+    {
+        hasNectar = true;
+        SetFlowerColor(true); // Update flower color
+    }
+    public bool GetNectar()
+    {
+        if (hasNectar)
+        {
+            hasNectar = false;
+            
+            return true;
+        }
+        return false;
+    }
+
+
 }

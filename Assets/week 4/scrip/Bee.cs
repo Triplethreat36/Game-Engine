@@ -6,34 +6,55 @@ using UnityEngine;
 public class Bee : MonoBehaviour
 {
     private Hive hive;
+    private Flower currentFlower;
 
-    public void Init(Hive hive)
+    void Start()
     {
-        this.hive = hive;
+        CheckAnyFlower();
+    }
+    public void Init(Hive hiveReference)
+    {
+        hive = hiveReference;
     }
 
+   
     public void CheckAnyFlower()
     {
-        Flower[] flowers = FindObjectsOfType<Flower>();
+        Flower[] flowers = GameObject.FindObjectsOfType<Flower>(); // Find all flowers in the scene
+
+       
         if (flowers.Length > 0)
         {
-            Flower flowerToCheck = flowers[Random.Range(0, flowers.Length)];
-            transform.DOMove(flowerToCheck.transform.position, 1f).OnComplete(() =>
+           
+            Flower currentFlower = flowers[Random.Range(0, flowers.Length)];
+
+            
+            transform.DOMove(currentFlower.transform.position, 1f).OnComplete(() =>
             {
-                if (flowerToCheck.HasNectar())
+               
+                if (currentFlower.TakeNectar())
                 {
+                   
                     GoToHive();
-                    flowerToCheck.TakeNectar();
+                    hive.GiveNectar();
                 }
-            });
+                else
+                {
+                    
+                    CheckAnyFlower();
+                }
+            }).SetEase(Ease.Linear);
         }
     }
 
+ 
     private void GoToHive()
     {
+       
         transform.DOMove(hive.transform.position, 1f).OnComplete(() =>
         {
-            hive.GiveNectar();
-        });
+            // After delivering nectar to the hive, check for more flowers
+            CheckAnyFlower();
+        }).SetEase(Ease.Linear);
     }
 }
