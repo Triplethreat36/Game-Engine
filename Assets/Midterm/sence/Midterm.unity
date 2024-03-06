@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a8293b1d63b6a84fb6b08da7c7078cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wordContainer: {fileID: 1343753977}
+  WorldContainer: {fileID: 1343753977}
   keyboardContainer: {fileID: 1275838299}
   letterContainer: {fileID: 1947550015089889849, guid: b700d3d83ab3aa2459b3e4bdd47b1974, type: 3}
   hangmanStages:

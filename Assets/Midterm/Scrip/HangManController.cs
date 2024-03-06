@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class HangManController : MonoBehaviour
 {
-    [SerializeField] GameObject wordContainer;
+    [SerializeField] GameObject WorldContainer;
     [SerializeField] GameObject keyboardContainer;
     [SerializeField] GameObject letterContainer;
     [SerializeField] GameObject[] hangmanStages;
@@ -39,19 +39,20 @@ public class HangManController : MonoBehaviour
         {
             child.interactable = true;
         }
-        foreach(Transform child in wordContainer.GetComponentsInChildren<Transform>())
+        foreach(Transform child in WorldContainer.GetComponentInChildren<Transform>())
         {
-           //Destroy(child.gameObject);
+            // removes the child from the worldcontainer 
+           Destroy(child.gameObject);
         }
         foreach(GameObject stage in hangmanStages)
         {
             stage.SetActive(false);
         }
-        //generate new word\
+        //generate new word
         word = generateWord().ToUpper();
         foreach(char letter in word)
         {
-            var temp = Instantiate(letterContainer, wordContainer.transform);
+            var temp = Instantiate(letterContainer, WorldContainer.transform);
         }    
     }
     private void CreateButton(int i)
@@ -75,7 +76,7 @@ public class HangManController : MonoBehaviour
             {
                 letterInWord = true;
                 correctGuesses++;
-                wordContainer.GetComponentsInChildren<TextMeshProUGUI>()[i].text = imputLetter;
+                WorldContainer.GetComponentsInChildren<TextMeshProUGUI>()[i].text = imputLetter;
 
             }
         }
@@ -92,7 +93,7 @@ public class HangManController : MonoBehaviour
         {
             for(int i = 0;i < word.Length;i++) 
             {
-                wordContainer.GetComponentsInChildren<TextMeshProUGUI>()[i].color = Color.green;
+                WorldContainer.GetComponentsInChildren<TextMeshProUGUI>()[i].color = Color.green;
             }
             Invoke("InitializeGame", 3f);
         }
@@ -100,8 +101,8 @@ public class HangManController : MonoBehaviour
         {
             for (int i = 0; i < word.Length; i++)
             {
-                wordContainer.GetComponentsInChildren<TextMeshProUGUI>()[i].color = Color.red;
-                wordContainer.GetComponentsInChildren<TextMeshProUGUI>()[i].text = word[i].ToString();
+                WorldContainer.GetComponentsInChildren<TextMeshProUGUI>()[i].color = Color.red;
+                WorldContainer.GetComponentsInChildren<TextMeshProUGUI>()[i].text = word[i].ToString();
             }
             Invoke("InitializeGame", 3f);
         }
