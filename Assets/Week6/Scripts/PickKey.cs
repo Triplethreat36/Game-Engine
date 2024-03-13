@@ -14,7 +14,7 @@ public class PickKey : MonoBehaviour
             if (doorGameObject != null) // Check if doorGameObject is not null
             {
                 doorGameObject.GetComponent<OpenDoor>().HasKey = true;
-                Destroy(gameObject); // Destroy the key once collected
+                
             }
             /* else
              {
