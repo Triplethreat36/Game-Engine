@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private float mouseDeltaY = 0f;
     private float cameraRotX = 0f;
     private int rotDir = 0;
+    private bool Grounded;
 
     Rigidbody rb;
     private void Awake()
@@ -133,5 +134,15 @@ public class PlayerController : MonoBehaviour
     void Jump(InputAction.CallbackContext context) 
     {
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("player has enter trigger");
+        if(other.transform.tag == "Buller") Damage();
+
+    }
+    public void Damage()
+    {
+        Debug.Log("Player is damage");
     }
 }

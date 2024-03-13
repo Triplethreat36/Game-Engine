@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 public class Player : MonoBehaviour
 {
@@ -38,5 +39,6 @@ public class Player : MonoBehaviour
             transform.eulerAngles += new Vector3(0, rotation * Time.deltaTime *
             rotDir, 0);
         }
+        
     }
 }
