@@ -82,8 +82,13 @@ public class HangManController : MonoBehaviour
         }
         if(letterInWord == false) 
         {
+
+
             incorrectGuesses++;
+            incorrectGuesses = Mathf.Clamp(incorrectGuesses, 0, hangmanStages.Length);
             hangmanStages[incorrectGuesses - 1].SetActive(true);
+
+
         }
         CheckOutCome();
     }
