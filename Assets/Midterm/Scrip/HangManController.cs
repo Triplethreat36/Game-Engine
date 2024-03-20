@@ -55,24 +55,24 @@ public class HangManController : MonoBehaviour
             var temp = Instantiate(letterContainer, WorldContainer.transform);
         }    
     }
-    private void CreateButton(int i)
+    private void CreateButton(int i) // create buttons that are letter so player can click on
     {
         GameObject temp = Instantiate(letterButton[0], keyboardContainer.transform);
         temp.GetComponentInChildren<TextMeshProUGUI>().text = ((char)i).ToString();
         temp.GetComponent<Button>().onClick.AddListener(delegate { CheckLetter(((char)i).ToString()); });
     }
-    private string generateWord()
+    private string generateWord() // takes words from the word list at random and make words spaces for that word
     {
         string[] wordList = possibleWord.text.Split("\n");
         string line = wordList[Random.Range(0, wordList.Length - 1)];
         return line.Substring(0, line.Length - 1);
     }
-    private void CheckLetter(string imputLetter)
+    private void CheckLetter(string imputLetter)// check if letter is correct or not
     {
         bool letterInWord = false;
         for (int i = 0; i < word.Length; i++) 
         {
-            if(imputLetter == word[i].ToString())
+            if(imputLetter == word[i].ToString()) // if it correct
             {
                 letterInWord = true;
                 correctGuesses++;
@@ -80,7 +80,7 @@ public class HangManController : MonoBehaviour
 
             }
         }
-        if(letterInWord == false) 
+        if(letterInWord == false)  // if it not cotrrect
         {
 
 
@@ -94,7 +94,7 @@ public class HangManController : MonoBehaviour
     }
     private void CheckOutCome()
     {
-        if(correctGuesses == word.Length)  //win
+        if(correctGuesses == word.Length)  // when all letter are correct win change the owrd red
         {
             for(int i = 0;i < word.Length;i++) 
             {
@@ -102,7 +102,7 @@ public class HangManController : MonoBehaviour
             }
             Invoke("InitializeGame", 3f);
         }
-        if (incorrectGuesses == hangmanStages.Length) //lose
+        if (incorrectGuesses == hangmanStages.Length) //if you guess wrong to much you lose and the text turns red
         {
             for (int i = 0; i < word.Length; i++)
             {
