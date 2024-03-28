@@ -45,6 +45,9 @@ TagManager:
   - name: entrance
     uniqueID: 3768490917
     locked: 0
+  - name: Signs
+    uniqueID: 1781924207
+    locked: 0
   - name: Player
     uniqueID: 2902039153
     locked: 0
