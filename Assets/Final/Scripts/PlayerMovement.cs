@@ -23,11 +23,21 @@ public class PlayerMovement : MonoBehaviour
         change.x = Input.GetAxisRaw("Horizontal");
         change.y = Input.GetAxisRaw("Vertical");
         Debug.Log(change);
+        UpdateAnimationAndMove();
+    }
+    void UpdateAnimationAndMove()
+    {
         if (change != Vector3.zero)
         {
             MoveCharacter();
             animator.SetFloat("moveX", change.x);
             animator.SetFloat("moveY", change.y);
+            animator.SetBool("Moving", true);
+            
+        }
+        else
+        {
+            animator.SetBool("Moving", false);
         }
     }
 
