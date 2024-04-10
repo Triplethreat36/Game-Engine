@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
     
 {
+     public Vector3 startingPosition;
     [SerializeField] float speed;
     [SerializeField] float jumpForce;
 
@@ -101,7 +102,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Main camera is not found or not active.");
+               // Debug.LogWarning("Main camera is not found or not active.");
             }
             //Vector3 angle = new Vector3(rotation * Time.deltaTime * rotDir, 0, 0);
 
@@ -113,9 +114,12 @@ public class PlayerController : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-    void Start()
+   private void Start()
     {
-        
+         
+        startingPosition = transform.position;
+        // Subscribe to the RestartEvent
+        GameManager.AddRestartEventListener(RestartPosition);
     }
 
     // Update is called once per frame
@@ -137,12 +141,22 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("player has enter trigger");
+        //Debug.Log("player has enter trigger");
         if(other.transform.tag == "Buller") Damage();
 
     }
     public void Damage()
     {
-        Debug.Log("Player is damage");
+        //Debug.Log("Player is damage");
+    }
+    private void RestartPosition()
+    {
+        // Set the player's position to the starting position
+       transform.position = startingPosition;
+    }
+    private void OnDestroy()
+    {
+        // Unsubscribe from the RestartEvent
+        GameManager.RemoveRestartEventListener(RestartPosition);
     }
 }

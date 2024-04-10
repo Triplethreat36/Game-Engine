@@ -28,5 +28,9 @@ public class InventoryUI : MonoBehaviour
     {
         keyText.text = playerInventory.NumberOfKey.ToString();
     }
-
+    public void ResetText()
+    {
+        diamondText.text = "0"; // Reset diamond text to 0
+        keyText.text = "0";     // Reset key text to 0
+    }
 }

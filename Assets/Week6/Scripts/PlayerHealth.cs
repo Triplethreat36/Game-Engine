@@ -22,7 +22,24 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        // Add any death logic here, such as game over or respawn
-        Debug.Log("Player died.");
+        gameObject.SetActive(false);
+
+        // Activate the button on the canvas (assuming you have a reference to it)
+        canvasButton.SetActive(true);
+
     }
+    public GameObject canvasButton;
+    void Start()
+    {
+        GameManager.AddRestartEventListener(ResetHealth);
+    }
+    public void ResetHealth()
+    {
+        health = MAX_HEALTH; // Reset health to maximum value
+        OnHealthChanged?.Invoke(health); // Raise the OnHealthChanged event with the new health value
+        gameObject.SetActive(true);
+        canvasButton.SetActive(false);
+
+    }
+
 }

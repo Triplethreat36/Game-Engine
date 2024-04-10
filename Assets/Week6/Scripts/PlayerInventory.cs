@@ -9,6 +9,14 @@ public class PlayerInvetory : MonoBehaviour
 
     public UnityEvent<PlayerInvetory> OnDiamondCollected;
 
+    public void ResetInventory()
+    {
+        NumberOfDiamonds = 0; 
+        NumberOfKey = 0;    
+
+        OnDiamondCollected.Invoke(this);
+        OnKeyCollected.Invoke(this);
+    }
     public void DiamondCollected()
     {
         NumberOfDiamonds++;

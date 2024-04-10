@@ -12,12 +12,18 @@ public class Health : MonoBehaviour
     {
         // Subscribe to the OnHealthChanged event
         playerHealth.OnHealthChanged += UpdateHealthBar;
+        
     }
 
     void UpdateHealthBar(float health)
     {
+        // Ensure health value is clamped between 0 and MAX_HEALTH
+        float clampedHealth = Mathf.Clamp(health, 0f, PlayerHealth.MAX_HEALTH);
+
         // Update the image fill amount based on the player's health
-        healthBarImage.fillAmount = health / PlayerHealth.MAX_HEALTH;
+        healthBarImage.fillAmount = clampedHealth / PlayerHealth.MAX_HEALTH;
+        // Update the image fill amount based on the player's health
+        
     }
 
     void OnDestroy()

@@ -69,4 +69,11 @@ public class OpenDoor : MonoBehaviour
         get { return hasKey; }
         set { hasKey = value; }
     }
+    public void ResetDoor()
+    {
+        isOpening = false; // Close the door
+        alpha = 0f;  // Reset interpolation parameter
+        transform.position = positionClose; // Set door position to closed position
+        hasKey = false; // Reset key state
+    }
 }
